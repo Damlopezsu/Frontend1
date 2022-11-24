@@ -1,31 +1,4 @@
-[1:08, 23/11/2022] Yuliana Bahamon Mintic: /**
-   * Este método permite llevar a cabo el proceso de login,
-   * llamando al método correspondiente de los servicios
-   * para solicitar la validación al backend
-   */
-  login():void{  
-    let elUsuario:Usuario={
-      correo:this.correo,
-      contrasena:this.contrasena
-    }
-    this.miServicioSeguridad.login(elUsuario).subscribe(
-      data=>{
-        this.router.navigate(['pages/dashboard']);
-        this.miServicioSeguridad.guardarDatosSesion(data);
-      },
-      error=>{
-        Swal.fire({
-          title: 'Error Login',
-          text: error["error"]["message"],
-          icon: 'error',
-          timer:5000 
-        });
-      }
-    );
-  }
-}
-[1:09, 23/11/2022] Yuliana Bahamon Mintic: ng generate service servicios/seguridad
-[1:13, 23/11/2022] Yuliana Bahamon Mintic: import { HttpClient } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { BehaviorSubject, Observable } from 'rxjs';
@@ -73,7 +46,7 @@ export class SeguridadService {
    * @returns Respuesta HTTP la cual indica si el usuario tiene permiso de acceso
    */
   login(infoUsuario: Usuario): Observable<Usuario> {
-    return this.http.post<Usuario>(`${environment.url_gateway}/login`, infoUsuario);
+    return this.http.post<Usuario>(`$(environment.url_gteway)/login`, infoUsuario);
   }
 
   /*
